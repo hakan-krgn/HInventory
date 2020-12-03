@@ -18,7 +18,7 @@ public class Main extends JavaPlugin {
 
     public static void setup(Plugin plugin) {
         if (instance != null) {
-            Bukkit.getLogger().warning("InventoryAPI already registered.");
+            Bukkit.getLogger().warning("InventoryAPI already registered !");
             return;
         }
         instance = plugin;
