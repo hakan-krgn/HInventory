@@ -1,4 +1,4 @@
 name: 'InventoryAPI'
-version: 5.0.0
+version: 1.0.0
 author: 'Hakan Kargın'
 main: com.hakan.invapi.Main
