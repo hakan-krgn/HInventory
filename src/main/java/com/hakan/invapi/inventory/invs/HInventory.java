@@ -1,6 +1,7 @@
 package com.hakan.invapi.inventory.invs;
 
 import com.hakan.invapi.Main;
+import com.hakan.invapi.api.InventoryAPI;
 import com.hakan.invapi.customevents.HInventoryOpenEvent;
 import com.hakan.invapi.interfaces.Click;
 import com.hakan.invapi.interfaces.Update;
@@ -52,10 +53,14 @@ public class HInventory {
         player.closeInventory();
     }
 
-    public void update(int runLater, int period, Update update) {
+    public void update(Player player, int runLater, int period, Update update) {
         final BukkitTask[] bukkitTask = {null};
         bukkitTask[0] = new BukkitRunnable() {
             public void run() {
+                if (InventoryAPI.getInventory(player) == null) {
+                    cancel();
+                    return;
+                }
                 update.update(bukkitTask[0]);
             }
         }.runTaskTimer(Main.getInstance(), runLater, period);
