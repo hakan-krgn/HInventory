@@ -3,7 +3,6 @@ package com.hakan.invapi.inventory.invs;
 import com.hakan.invapi.Main;
 import com.hakan.invapi.api.InventoryAPI;
 import com.hakan.invapi.customevents.HInventoryOpenEvent;
-import com.hakan.invapi.interfaces.Click;
 import com.hakan.invapi.interfaces.Update;
 import com.hakan.invapi.inventory.item.ClickableItem;
 import com.hakan.invapi.other.Variables;
@@ -24,7 +23,7 @@ public class HInventory {
     private final String title;
     private final InventoryType inventoryType;
     public Close closeChecker;
-    public HashMap<Integer, Click> clickEvents = new HashMap<>();
+    private final HashMap<Integer, ClickableItem> clickableItems = new HashMap<>();
     private String id;
     private boolean closeable;
 
@@ -94,14 +93,18 @@ public class HInventory {
         this.closeable = closeable;
     }
 
-    public org.bukkit.inventory.Inventory toInventory() {
+    public Inventory toInventory() {
         return this.bukkitInventory;
     }
 
     public void setItem(int slot, ClickableItem clickableItem) {
         ItemStack itemStack = clickableItem.getItem();
-        this.clickEvents.put(slot, clickableItem.getClick());
+        this.clickableItems.put(slot, clickableItem);
         this.bukkitInventory.setItem(slot, itemStack);
+    }
+
+    public ClickableItem getItem(int slot) {
+        return this.clickableItems.get(slot);
     }
 
     public HInventory whenClosed(Close close) {

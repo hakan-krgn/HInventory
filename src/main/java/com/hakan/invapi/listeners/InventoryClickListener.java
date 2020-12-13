@@ -4,6 +4,7 @@ import com.hakan.invapi.api.InventoryAPI;
 import com.hakan.invapi.customevents.HInventoryClickEvent;
 import com.hakan.invapi.interfaces.Click;
 import com.hakan.invapi.inventory.invs.HInventory;
+import com.hakan.invapi.inventory.item.ClickableItem;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,7 +29,9 @@ public class InventoryClickListener implements Listener {
 
                 event.setCancelled(true);
 
-                Click click = hInventory.clickEvents.get(event.getSlot());
+                ClickableItem clickableItem = hInventory.getItem(event.getSlot());
+                if (clickableItem == null) return;
+                Click click = clickableItem.getClick();
                 if (click == null) return;
                 click.click(event);
                 Bukkit.getPluginManager().callEvent(new HInventoryClickEvent(player, hInventory, event));
