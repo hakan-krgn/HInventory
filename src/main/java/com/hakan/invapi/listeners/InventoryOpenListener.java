@@ -17,9 +17,7 @@ public class InventoryOpenListener implements Listener {
             Player player = (Player) event.getPlayer();
             HInventory hInventory = InventoryAPI.getInventory(player);
             if (hInventory == null) return;
-            if (!hInventory.isCloseable()) {
-                Bukkit.getPluginManager().callEvent(new HInventoryOpenEvent(player, hInventory, event));
-            }
+            Bukkit.getPluginManager().callEvent(new HInventoryOpenEvent(player, hInventory, event));
         }
     }
 }

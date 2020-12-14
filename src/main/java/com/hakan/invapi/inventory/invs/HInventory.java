@@ -42,6 +42,7 @@ public class HInventory {
         if (player == null) return;
         Variables.getInv.put(player, this);
         player.openInventory(this.bukkitInventory);
+        Variables.getInv.put(player, this);
     }
 
     public void close(Player player) {
