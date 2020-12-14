@@ -27,8 +27,9 @@ public class InventoryCloseListener implements Listener {
                     }
                 }.runTaskLater(Main.getInstance(), 1);
             } else {
-                if (hInventory.closeChecker != null) {
-                    hInventory.closeChecker.close(event);
+                HInventory.Close close = hInventory.closeChecker;
+                if (close != null) {
+                    close.close(event);
                 }
                 Bukkit.getPluginManager().callEvent(new HInventoryCloseEvent(player, hInventory, event));
                 Variables.getInv.remove(player);

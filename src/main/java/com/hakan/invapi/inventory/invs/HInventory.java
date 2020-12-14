@@ -2,7 +2,6 @@ package com.hakan.invapi.inventory.invs;
 
 import com.hakan.invapi.Main;
 import com.hakan.invapi.api.InventoryAPI;
-import com.hakan.invapi.customevents.HInventoryOpenEvent;
 import com.hakan.invapi.interfaces.Update;
 import com.hakan.invapi.inventory.item.ClickableItem;
 import com.hakan.invapi.other.Variables;
@@ -22,8 +21,8 @@ public class HInventory {
     private final Inventory bukkitInventory;
     private final String title;
     private final InventoryType inventoryType;
-    public Close closeChecker;
     private final HashMap<Integer, ClickableItem> clickableItems = new HashMap<>();
+    public Close closeChecker;
     private String id;
     private boolean closeable;
 
@@ -41,9 +40,8 @@ public class HInventory {
 
     public void open(Player player) {
         if (player == null) return;
-        player.openInventory(this.bukkitInventory);
         Variables.getInv.put(player, this);
-        Bukkit.getPluginManager().callEvent(new HInventoryOpenEvent(player, this));
+        player.openInventory(this.bukkitInventory);
     }
 
     public void close(Player player) {

@@ -3,6 +3,7 @@ package com.hakan.invapi;
 import com.hakan.invapi.listeners.DisablePluginListener;
 import com.hakan.invapi.listeners.InventoryClickListener;
 import com.hakan.invapi.listeners.InventoryCloseListener;
+import com.hakan.invapi.listeners.InventoryOpenListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
@@ -26,6 +27,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new DisablePluginListener(), plugin);
         pm.registerEvents(new InventoryClickListener(), plugin);
         pm.registerEvents(new InventoryCloseListener(), plugin);
+        pm.registerEvents(new InventoryOpenListener(), plugin);
     }
 
     @Override
