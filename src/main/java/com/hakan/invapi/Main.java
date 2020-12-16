@@ -17,12 +17,16 @@ public class Main extends JavaPlugin {
         return instance;
     }
 
+    public static void setInstance(Plugin plugin) {
+        instance = plugin;
+    }
+
     public static void setup(Plugin plugin) {
         if (instance != null) {
             Bukkit.getLogger().warning("InventoryAPI already registered !");
             return;
         }
-        instance = plugin;
+        setInstance(plugin);
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new DisablePluginListener(), plugin);
         pm.registerEvents(new InventoryClickListener(), plugin);

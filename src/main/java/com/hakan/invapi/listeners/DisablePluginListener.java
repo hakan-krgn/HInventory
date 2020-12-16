@@ -14,6 +14,7 @@ public class DisablePluginListener implements Listener {
     @EventHandler
     public void onPluginDisable(PluginDisableEvent event) {
         if (event.getPlugin().equals(Main.getInstance())) {
+            Main.setInstance(null);
             for (Player player : Bukkit.getOnlinePlayers()) {
                 HInventory hInventory = InventoryAPI.getInventory(player);
                 if (hInventory != null) hInventory.close(player);
