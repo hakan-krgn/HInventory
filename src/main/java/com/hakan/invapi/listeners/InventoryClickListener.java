@@ -6,12 +6,13 @@ import com.hakan.invapi.interfaces.Click;
 import com.hakan.invapi.inventory.invs.HInventory;
 import com.hakan.invapi.inventory.item.ClickableItem;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 public class InventoryClickListener implements Listener {
 
@@ -23,9 +24,17 @@ public class InventoryClickListener implements Listener {
             if (hInventory != null) {
 
                 Inventory inventory = event.getClickedInventory();
-                if (inventory == null) return;
-                else if (inventory.equals(player.getOpenInventory().getBottomInventory())) return;
-                else if (event.getSlot() < 0) return;
+                if (inventory == null) {
+                    return;
+                } else if (inventory.equals(player.getOpenInventory().getBottomInventory())) {
+                    ItemStack currentItem = event.getCurrentItem();
+                    if (currentItem != null && !currentItem.getType().equals(Material.AIR)) {
+                        event.setCancelled(true);
+                    }
+                    return;
+                } else if (event.getSlot() < 0) {
+                    return;
+                }
 
                 event.setCancelled(true);
 
@@ -36,14 +45,6 @@ public class InventoryClickListener implements Listener {
                 click.click(event);
                 Bukkit.getPluginManager().callEvent(new HInventoryClickEvent(player, hInventory, event));
             }
-        }
-    }
-
-    @EventHandler
-    public void onInventoryDrag(InventoryDragEvent event) {
-        if (event.getWhoClicked() instanceof Player) {
-            Player player = (Player) event.getWhoClicked();
-            if (InventoryAPI.getInventory(player) != null) event.setCancelled(true);
         }
     }
 }
