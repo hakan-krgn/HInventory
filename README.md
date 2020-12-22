@@ -73,3 +73,20 @@ InventoryAPI.setupInvs(this);
 ```
 
 *to onEnable of your plugin.*
+
+**Maven**
+
+```xml
+<dependency>
+    <groupId>com.github.hakan-krgn</groupId>
+    <artifactId>HInventory</artifactId>
+    <version>6.0.0</version>
+</dependency>
+
+<repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
+```
+
+[![](https://jitpack.io/v/hakan-krgn/HInventory.svg)](https://jitpack.io/#hakan-krgn/HInventory)
