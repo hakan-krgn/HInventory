@@ -25,10 +25,12 @@ public class HInventory {
     public Close closeChecker;
     private String id;
     private boolean closeable;
+    private boolean clickable;
 
-    public HInventory(String title, InventoryType inventoryType, int size, String id, boolean closeable) {
+    public HInventory(String title, InventoryType inventoryType, int size, String id, boolean closeable, boolean clickable) {
         setId(id);
         setCloseable(closeable);
+        setClickable(clickable);
         this.title = title;
         this.inventoryType = inventoryType;
         if (inventoryType.equals(InventoryType.CHEST)) {
@@ -92,6 +94,14 @@ public class HInventory {
         this.closeable = closeable;
     }
 
+    public boolean isClickable() {
+        return clickable;
+    }
+
+    public void setClickable(boolean clickable) {
+        this.clickable = clickable;
+    }
+
     public Inventory toInventory() {
         return this.bukkitInventory;
     }
@@ -112,7 +122,7 @@ public class HInventory {
     }
 
     public HInventory clone() {
-        return new HInventory(getTitle(), getInventoryType(), getSize(), getId() + "_clone", isCloseable());
+        return new HInventory(getTitle(), getInventoryType(), getSize(), getId() + "_clone", isCloseable(), isClickable());
     }
 
     public Pagination getPagination() {

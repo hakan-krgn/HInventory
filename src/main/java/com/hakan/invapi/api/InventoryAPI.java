@@ -32,6 +32,7 @@ public class InventoryAPI {
         private int size = 6;
         private boolean closeable = true;
         private String id = "";
+        private boolean clickable = false;
 
         public InventoryManager() {
         }
@@ -61,8 +62,13 @@ public class InventoryAPI {
             return this;
         }
 
+        public InventoryManager setClickable(boolean clickable) {
+            this.clickable = clickable;
+            return this;
+        }
+
         public HInventory create() {
-            return new HInventory(ChatColor.translateAlternateColorCodes('&', this.title), this.inventoryType, this.size, this.id, this.closeable);
+            return new HInventory(ChatColor.translateAlternateColorCodes('&', this.title), this.inventoryType, this.size, this.id, this.closeable, this.clickable);
         }
     }
 }

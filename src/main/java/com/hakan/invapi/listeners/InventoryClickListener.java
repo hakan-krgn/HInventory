@@ -36,10 +36,9 @@ public class InventoryClickListener implements Listener {
                     return;
                 }
 
-                event.setCancelled(true);
-
                 ClickableItem clickableItem = hInventory.getItem(event.getSlot());
                 if (clickableItem == null) return;
+                event.setCancelled(true);
                 Click click = clickableItem.getClick();
                 if (click == null) return;
                 click.click(event);
