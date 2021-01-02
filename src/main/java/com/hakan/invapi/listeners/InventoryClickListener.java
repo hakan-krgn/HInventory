@@ -27,9 +27,11 @@ public class InventoryClickListener implements Listener {
                 if (inventory == null) {
                     return;
                 } else if (inventory.equals(player.getOpenInventory().getBottomInventory())) {
-                    ItemStack currentItem = event.getCurrentItem();
-                    if (currentItem != null && !currentItem.getType().equals(Material.AIR)) {
-                        event.setCancelled(true);
+                    if (!hInventory.isClickable()) {
+                        ItemStack currentItem = event.getCurrentItem();
+                        if (currentItem != null && !currentItem.getType().equals(Material.AIR)) {
+                            event.setCancelled(true);
+                        }
                     }
                     return;
                 } else if (event.getSlot() < 0) {
