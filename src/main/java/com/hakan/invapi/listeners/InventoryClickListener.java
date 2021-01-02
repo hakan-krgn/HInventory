@@ -36,13 +36,14 @@ public class InventoryClickListener implements Listener {
                     return;
                 }
 
+                Bukkit.getPluginManager().callEvent(new HInventoryClickEvent(player, hInventory, event));
+
                 ClickableItem clickableItem = hInventory.getItem(event.getSlot());
                 if (clickableItem == null) return;
                 event.setCancelled(true);
                 Click click = clickableItem.getClick();
                 if (click == null) return;
                 click.click(event);
-                Bukkit.getPluginManager().callEvent(new HInventoryClickEvent(player, hInventory, event));
             }
         }
     }
