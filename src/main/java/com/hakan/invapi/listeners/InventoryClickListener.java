@@ -23,6 +23,13 @@ public class InventoryClickListener implements Listener {
             HInventory hInventory = InventoryAPI.getInventory(player);
             if (hInventory != null) {
 
+                HInventoryClickEvent hInventoryClickEvent = new HInventoryClickEvent(player, hInventory, event);
+                Bukkit.getPluginManager().callEvent(hInventoryClickEvent);
+                if (hInventoryClickEvent.isCancelled()) {
+                    event.setCancelled(true);
+                    return;
+                }
+
                 Inventory inventory = event.getClickedInventory();
                 if (inventory == null) {
                     return;
@@ -35,13 +42,6 @@ public class InventoryClickListener implements Listener {
                     }
                     return;
                 } else if (event.getSlot() < 0) {
-                    return;
-                }
-
-                HInventoryClickEvent hInventoryClickEvent = new HInventoryClickEvent(player, hInventory, event);
-                Bukkit.getPluginManager().callEvent(hInventoryClickEvent);
-                if (hInventoryClickEvent.isCancelled()) {
-                    event.setCancelled(true);
                     return;
                 }
 
