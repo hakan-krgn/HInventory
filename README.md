@@ -1,6 +1,6 @@
 # InventoryAPI
 
-**Create inventory**
+**Create com.hakan.invapi.inventory**
 
 ```java
 Player player=Bukkit.getPlayer("playerName");
