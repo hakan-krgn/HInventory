@@ -21,6 +21,11 @@ public class InventoryAPI {
         return Variables.getInv.get(player);
     }
 
+    public static String getId(Player player) {
+        HInventory hInventory = Variables.getInv.get(player);
+        return hInventory != null ? hInventory.getId() : "__there_is_no_inventory__";
+    }
+
     public static InventoryManager getInventoryManager() {
         return new InventoryManager();
     }
