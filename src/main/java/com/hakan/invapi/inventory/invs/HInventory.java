@@ -6,6 +6,7 @@ import com.hakan.invapi.interfaces.Update;
 import com.hakan.invapi.inventory.item.ClickableItem;
 import com.hakan.invapi.other.Variables;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
@@ -64,6 +65,14 @@ public class HInventory {
                 update.update(bukkitTask[0]);
             }
         }.runTaskTimer(Main.getInstance(), runLater, period);
+    }
+
+    public void guiAir() {
+        ItemStack airItem = new ItemStack(Material.AIR);
+        for (int slot = 0; slot < this.getSize() * 9; slot++) {
+            if (getItem(slot) != null) continue;
+            this.setItem(slot, ClickableItem.empty(airItem));
+        }
     }
 
     public String getId() {
