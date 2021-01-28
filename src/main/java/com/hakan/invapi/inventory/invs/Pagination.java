@@ -112,8 +112,7 @@ public class Pagination {
 
     public int getLastPage() {
         int m = (int) Math.ceil((double) getClickableItems().size() / getItemSlots().size()) - 1;
-        m = m != -1 ? m : 0;
-        return m;
+        return m != -1 ? m : 0;
     }
 
     public int getFirstPage() {

@@ -1,6 +1,6 @@
 package com.hakan.invapi.listeners;
 
-import com.hakan.invapi.Main;
+import com.hakan.invapi.InventoryPlugin;
 import com.hakan.invapi.api.InventoryAPI;
 import com.hakan.invapi.customevents.HInventoryCloseEvent;
 import com.hakan.invapi.inventory.invs.HInventory;
@@ -25,7 +25,7 @@ public class InventoryCloseListener implements Listener {
                     public void run() {
                         hInventory.open(player);
                     }
-                }.runTaskLater(Main.getInstance(), 1);
+                }.runTaskLater(InventoryPlugin.getInstance(), 1);
             } else {
                 HInventory.Close close = hInventory.closeChecker;
                 if (close != null) {

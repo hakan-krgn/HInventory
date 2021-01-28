@@ -31,7 +31,8 @@ public class InventoryClickListener implements Listener {
                 }
 
                 Inventory inventory = event.getClickedInventory();
-                if (inventory == null) {
+
+                if (inventory == null || event.getSlot() < 0) {
                     return;
                 } else if (inventory.equals(player.getOpenInventory().getBottomInventory())) {
                     if (!hInventory.isClickable()) {
@@ -41,16 +42,19 @@ public class InventoryClickListener implements Listener {
                         }
                     }
                     return;
-                } else if (event.getSlot() < 0) {
-                    return;
                 }
 
                 ClickableItem clickableItem = hInventory.getItem(event.getSlot());
-                if (clickableItem == null) return;
+                if (clickableItem == null) {
+                    return;
+                }
+
                 event.setCancelled(true);
+
                 Click click = clickableItem.getClick();
-                if (click == null) return;
-                click.click(event);
+                if (click != null) {
+                    click.click(event);
+                }
             }
         }
     }

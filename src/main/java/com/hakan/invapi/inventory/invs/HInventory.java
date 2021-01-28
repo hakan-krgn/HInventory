@@ -1,6 +1,6 @@
 package com.hakan.invapi.inventory.invs;
 
-import com.hakan.invapi.Main;
+import com.hakan.invapi.InventoryPlugin;
 import com.hakan.invapi.api.InventoryAPI;
 import com.hakan.invapi.interfaces.Update;
 import com.hakan.invapi.inventory.item.ClickableItem;
@@ -64,7 +64,7 @@ public class HInventory {
                 }
                 update.update(bukkitTask[0]);
             }
-        }.runTaskTimer(Main.getInstance(), runLater, period);
+        }.runTaskTimer(InventoryPlugin.getInstance(), runLater, period);
     }
 
     public void guiAir() {

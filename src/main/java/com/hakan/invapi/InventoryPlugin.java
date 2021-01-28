@@ -9,7 +9,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Main extends JavaPlugin {
+public class InventoryPlugin extends JavaPlugin {
 
     private static Plugin instance;
 

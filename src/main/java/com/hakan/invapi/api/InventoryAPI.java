@@ -1,6 +1,6 @@
 package com.hakan.invapi.api;
 
-import com.hakan.invapi.Main;
+import com.hakan.invapi.InventoryPlugin;
 import com.hakan.invapi.inventory.invs.HInventory;
 import com.hakan.invapi.other.Variables;
 import org.bukkit.ChatColor;
@@ -14,7 +14,7 @@ public class InventoryAPI {
     }
 
     public static void setupInvs(Plugin plugin) {
-        Main.setup(plugin);
+        InventoryPlugin.setup(plugin);
     }
 
     public static HInventory getInventory(Player player) {
