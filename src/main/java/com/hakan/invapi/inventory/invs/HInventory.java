@@ -75,6 +75,21 @@ public class HInventory {
         }
     }
 
+    public void guiFill(ClickableItem clickableItem) {
+        for (int slot = 0; slot < this.getSize() * 9; slot++) {
+            if (getItem(slot) != null) continue;
+            this.setItem(slot, clickableItem);
+        }
+    }
+
+    public void guiFill(ItemStack itemStack) {
+        ClickableItem clickableItem = ClickableItem.empty(itemStack);
+        for (int slot = 0; slot < this.getSize() * 9; slot++) {
+            if (getItem(slot) != null) continue;
+            this.setItem(slot, clickableItem);
+        }
+    }
+
     public String getId() {
         return this.id;
     }
