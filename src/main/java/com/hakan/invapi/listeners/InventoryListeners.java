@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
@@ -27,6 +28,10 @@ public class InventoryListeners implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         if (event.getWhoClicked() instanceof Player) {
             Player player = (Player) event.getWhoClicked();
+            if (event.getClick().equals(ClickType.UNKNOWN)) {
+                event.setCancelled(true);
+                return;
+            }
             HInventory hInventory = InventoryAPI.getInventory(player);
             if (hInventory != null) {
 
@@ -85,6 +90,12 @@ public class InventoryListeners implements Listener {
                 }
                 Bukkit.getPluginManager().callEvent(new HInventoryCloseEvent(player, hInventory, event));
                 Variables.getInv.remove(player);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        player.updateInventory();
+                    }
+                }.runTaskLater(InventoryPlugin.getInstance(), 1);
             }
         }
     }
