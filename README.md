@@ -82,7 +82,7 @@ InventoryAPI.setupInvs(this);
 <dependency>
     <groupId>com.github.hakan-krgn</groupId>
     <artifactId>HInventory</artifactId>
-    <version>10.0.0</version>
+    <version>1.0.0</version>
 </dependency>
 
 <repository>
