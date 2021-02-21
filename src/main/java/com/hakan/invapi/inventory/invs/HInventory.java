@@ -67,14 +67,6 @@ public class HInventory {
         }.runTaskTimer(InventoryPlugin.getInstance(), runLater, period);
     }
 
-    public void guiAir() {
-        ItemStack airItem = new ItemStack(Material.AIR);
-        for (int slot = 0; slot < this.getSize() * 9; slot++) {
-            if (getItem(slot) != null) continue;
-            this.setItem(slot, ClickableItem.empty(airItem));
-        }
-    }
-
     public void guiFill(ClickableItem clickableItem) {
         for (int slot = 0; slot < this.getSize() * 9; slot++) {
             if (getItem(slot) != null) continue;
@@ -83,11 +75,11 @@ public class HInventory {
     }
 
     public void guiFill(ItemStack itemStack) {
-        ClickableItem clickableItem = ClickableItem.empty(itemStack);
-        for (int slot = 0; slot < this.getSize() * 9; slot++) {
-            if (getItem(slot) != null) continue;
-            this.setItem(slot, clickableItem);
-        }
+        guiFill(ClickableItem.empty(itemStack));
+    }
+
+    public void guiAir() {
+        guiFill(new ItemStack(Material.AIR));
     }
 
     public String getId() {

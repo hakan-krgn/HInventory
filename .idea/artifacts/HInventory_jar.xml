@@ -3,7 +3,6 @@
     <output-path>$PROJECT_DIR$/../../..</output-path>
     <root id="archive" name="HInventory.jar">
       <element id="module-output" name="HInventory" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/spigotmc/spigot-api/1.16.5-R0.1-SNAPSHOT/spigot-api-1.16.5-R0.1-20210208.101519-17.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
