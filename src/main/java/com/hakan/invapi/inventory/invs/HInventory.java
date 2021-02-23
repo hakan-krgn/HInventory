@@ -11,13 +11,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
 
-public class HInventory {
+public class HInventory implements InventoryHolder {
 
     private final Inventory bukkitInventory;
     private final String title;
@@ -35,17 +36,17 @@ public class HInventory {
         this.title = title;
         this.inventoryType = inventoryType;
         if (inventoryType.equals(InventoryType.CHEST)) {
-            this.bukkitInventory = Bukkit.createInventory(null, size * 9, title);
+            this.bukkitInventory = Bukkit.createInventory(this, size * 9, title);
         } else {
-            this.bukkitInventory = Bukkit.createInventory(null, inventoryType, title);
+            this.bukkitInventory = Bukkit.createInventory(this, inventoryType, title);
         }
     }
 
     public void open(Player player) {
         if (player == null) return;
-        Variables.getInv.put(player, this);
+        Variables.playerInventory.put(player, this);
         player.openInventory(this.bukkitInventory);
-        Variables.getInv.put(player, this);
+        Variables.playerInventory.put(player, this);
     }
 
     public void close(Player player) {
@@ -118,7 +119,8 @@ public class HInventory {
         this.clickable = clickable;
     }
 
-    public Inventory toInventory() {
+    @Override
+    public Inventory getInventory() {
         return this.bukkitInventory;
     }
 

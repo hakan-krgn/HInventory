@@ -8,6 +8,6 @@ import java.util.Map;
 
 public class Variables {
 
-    public static Map<Player, HInventory> getInv = new HashMap<>();
+    public static Map<Player, HInventory> playerInventory = new HashMap<>();
 
 }

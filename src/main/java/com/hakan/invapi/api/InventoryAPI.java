@@ -18,11 +18,11 @@ public class InventoryAPI {
     }
 
     public static HInventory getInventory(Player player) {
-        return Variables.getInv.get(player);
+        return Variables.playerInventory.get(player);
     }
 
     public static String getId(Player player) {
-        HInventory hInventory = Variables.getInv.get(player);
+        HInventory hInventory = Variables.playerInventory.get(player);
         return hInventory != null ? hInventory.getId() : "__there_is_no_inventory__";
     }
 

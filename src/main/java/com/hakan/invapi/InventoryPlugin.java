@@ -5,9 +5,8 @@ import com.hakan.invapi.listeners.InventoryListeners;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
 
-public class InventoryPlugin extends JavaPlugin {
+public class InventoryPlugin {
 
     private static Plugin instance;
 
@@ -28,10 +27,5 @@ public class InventoryPlugin extends JavaPlugin {
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new DisablePluginListener(), plugin);
         pm.registerEvents(new InventoryListeners(), plugin);
-    }
-
-    @Override
-    public void onEnable() {
-        setup(this);
     }
 }
