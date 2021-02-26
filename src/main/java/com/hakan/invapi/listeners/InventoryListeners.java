@@ -33,7 +33,6 @@ public class InventoryListeners implements Listener {
             }
             HInventory hInventory = InventoryAPI.getInventory(player);
             if (hInventory != null) {
-
                 HInventoryClickEvent hInventoryClickEvent = new HInventoryClickEvent(player, hInventory, event);
                 Bukkit.getPluginManager().callEvent(hInventoryClickEvent);
                 if (hInventoryClickEvent.isCancelled()) {
