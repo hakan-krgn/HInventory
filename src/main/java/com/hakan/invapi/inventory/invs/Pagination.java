@@ -55,14 +55,12 @@ public class Pagination {
         if (clickableItemSize <= first) return false;
         if (first < 0) return false;
 
-        HInventory hInventory = getInventory();
-
         int m = 0;
         for (; first < last; first++) {
             ClickableItem clickableItem;
             if (clickableItemSize > first) clickableItem = clickableItems.get(first);
             else clickableItem = ClickableItem.empty(new ItemStack(Material.AIR));
-            hInventory.setItem(itemSlots.get(m), clickableItem);
+            this.hInventory.setItem(itemSlots.get(m), clickableItem);
             m++;
         }
         return true;
@@ -90,7 +88,7 @@ public class Pagination {
     }
 
     public List<ClickableItem> getClickableItems() {
-        return clickableItems;
+        return this.clickableItems;
     }
 
     public int getPage() {

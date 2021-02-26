@@ -24,15 +24,15 @@ public class HInventory implements InventoryHolder {
     private final String title;
     private final InventoryType inventoryType;
     private final HashMap<Integer, ClickableItem> clickableItems = new HashMap<>();
-    public Close closeChecker;
+    private Close closeChecker;
     private String id;
     private boolean closeable;
     private boolean clickable;
 
     public HInventory(String title, InventoryType inventoryType, int size, String id, boolean closeable, boolean clickable) {
-        setId(id);
-        setCloseable(closeable);
-        setClickable(clickable);
+        this.id = id;
+        this.closeable = closeable;
+        this.clickable = clickable;
         this.title = title;
         this.inventoryType = inventoryType;
         if (inventoryType.equals(InventoryType.CHEST)) {
@@ -40,6 +40,10 @@ public class HInventory implements InventoryHolder {
         } else {
             this.bukkitInventory = Bukkit.createInventory(this, inventoryType, title);
         }
+    }
+
+    public HInventory() {
+        this("", InventoryType.CHEST, 1, "default_inventory", true, false);
     }
 
     public void open(Player player) {
@@ -125,13 +129,16 @@ public class HInventory implements InventoryHolder {
     }
 
     public void setItem(int slot, ClickableItem clickableItem) {
-        ItemStack itemStack = clickableItem.getItem();
         this.clickableItems.put(slot, clickableItem);
-        this.bukkitInventory.setItem(slot, itemStack);
+        this.bukkitInventory.setItem(slot, clickableItem.getItem());
+    }
+
+    public Close getCloseChecker() {
+        return this.closeChecker;
     }
 
     public ClickableItem getItem(int slot) {
-        return this.clickableItems.get(slot);
+        return this.clickableItems.getOrDefault(slot, null);
     }
 
     public HInventory whenClosed(Close close) {
