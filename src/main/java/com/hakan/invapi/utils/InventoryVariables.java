@@ -1,4 +1,4 @@
-package com.hakan.invapi.other;
+package com.hakan.invapi.utils;
 
 import com.hakan.invapi.inventory.invs.HInventory;
 import org.bukkit.entity.Player;
@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Variables {
+public class InventoryVariables {
 
     public static Map<Player, HInventory> playerInventory = new HashMap<>();
 

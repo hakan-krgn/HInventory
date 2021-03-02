@@ -21,15 +21,15 @@ public class ClickableItem {
     }
 
     public static ClickableItem empty(ItemStack item) {
-        return new ClickableItem(item, (event) -> {
-        });
+        return of(item, (event -> {
+        }));
     }
 
     public ItemStack getItem() {
-        return item;
+        return this.item;
     }
 
     public Click getClick() {
-        return click;
+        return this.click;
     }
 }

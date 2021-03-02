@@ -1,14 +1,17 @@
 package com.hakan.invapi.inventory.invs;
 
-import com.hakan.invapi.InventoryPlugin;
-import com.hakan.invapi.api.InventoryAPI;
+import com.hakan.invapi.InventoryAPI;
+import com.hakan.invapi.customevents.HInventoryOpenEvent;
 import com.hakan.invapi.interfaces.Update;
 import com.hakan.invapi.inventory.item.ClickableItem;
-import com.hakan.invapi.other.Variables;
+import com.hakan.invapi.utils.InventoryVariables;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -48,9 +51,20 @@ public class HInventory implements InventoryHolder {
 
     public void open(Player player) {
         if (player == null) return;
-        Variables.playerInventory.put(player, this);
+
+        HInventory hInventory = this;
+        Listener openListener = new Listener() {
+            @EventHandler
+            public void onInventoryOpen(InventoryOpenEvent event) {
+                Bukkit.getPluginManager().callEvent(new HInventoryOpenEvent(player, hInventory, event));
+            }
+        };
+        Bukkit.getPluginManager().registerEvents(openListener, InventoryAPI.getInstance());
+
         player.openInventory(this.bukkitInventory);
-        Variables.playerInventory.put(player, this);
+        InventoryVariables.playerInventory.put(player, this);
+
+        InventoryOpenEvent.getHandlerList().unregister(openListener);
     }
 
     public void close(Player player) {
@@ -69,7 +83,7 @@ public class HInventory implements InventoryHolder {
                 }
                 update.update(bukkitTask[0]);
             }
-        }.runTaskTimer(InventoryPlugin.getInstance(), runLater, period);
+        }.runTaskTimer(InventoryAPI.getInstance(), runLater, period);
     }
 
     public void guiFill(ClickableItem clickableItem) {

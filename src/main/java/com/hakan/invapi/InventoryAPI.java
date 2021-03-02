@@ -1,28 +1,59 @@
-package com.hakan.invapi.api;
+package com.hakan.invapi;
 
-import com.hakan.invapi.InventoryPlugin;
 import com.hakan.invapi.inventory.invs.HInventory;
-import com.hakan.invapi.other.Variables;
+import com.hakan.invapi.listeners.InventoryListeners;
+import com.hakan.invapi.utils.InventoryVariables;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 
 public class InventoryAPI {
+
+    private static Plugin instance;
 
     public InventoryAPI() {
     }
 
-    public static void setupInvs(Plugin plugin) {
-        InventoryPlugin.setup(plugin);
+    public static Plugin getInstance() {
+        return instance;
+    }
+
+    public static void setup(Plugin plugin) {
+        if (instance != null) {
+            return;
+        }
+        instance = plugin;
+
+        Listener disableListener = new Listener() {
+            @EventHandler
+            public void onDisable(PluginDisableEvent event) {
+                if (event.getPlugin().equals(InventoryAPI.getInstance())) {
+                    instance = null;
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        HInventory hInventory = InventoryAPI.getInventory(player);
+                        if (hInventory != null) hInventory.close(player);
+                    }
+                }
+            }
+        };
+
+        PluginManager pm = Bukkit.getPluginManager();
+        pm.registerEvents(new InventoryListeners(), plugin);
+        pm.registerEvents(disableListener, plugin);
     }
 
     public static HInventory getInventory(Player player) {
-        return Variables.playerInventory.get(player);
+        return InventoryVariables.playerInventory.get(player);
     }
 
     public static String getId(Player player) {
-        HInventory hInventory = Variables.playerInventory.get(player);
+        HInventory hInventory = InventoryVariables.playerInventory.get(player);
         return hInventory != null ? hInventory.getId() : "__there_is_no_inventory__";
     }
 
