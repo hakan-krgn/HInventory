@@ -69,7 +69,7 @@ hInventory.open(player);
 *If you want to use it without putting it into plugins folder, add*
 
 ```java
-InventoryAPI.setupInvs(this);
+InventoryAPI.setup(this);
 ```
 
 *to onEnable of your plugin.*
