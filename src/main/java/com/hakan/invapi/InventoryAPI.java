@@ -13,6 +13,8 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
+import java.util.Map;
+
 public class InventoryAPI {
 
     private static Plugin instance;
@@ -35,9 +37,12 @@ public class InventoryAPI {
             public void onDisable(PluginDisableEvent event) {
                 if (event.getPlugin().equals(InventoryAPI.getInstance())) {
                     instance = null;
-                    for (Player player : Bukkit.getOnlinePlayers()) {
-                        HInventory hInventory = InventoryAPI.getInventory(player);
-                        if (hInventory != null) hInventory.close(player);
+                    for (Map.Entry<Player, HInventory> entry : InventoryVariables.playerInventory.entrySet()) {
+                        Player player = entry.getKey();
+                        HInventory hInventory = entry.getValue();
+                        if (hInventory != null) {
+                            hInventory.close(player);
+                        }
                     }
                 }
             }
