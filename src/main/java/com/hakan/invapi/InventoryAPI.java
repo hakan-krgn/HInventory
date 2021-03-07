@@ -35,12 +35,14 @@ public class InventoryAPI {
         Listener disableListener = new Listener() {
             @EventHandler
             public void onDisable(PluginDisableEvent event) {
-                if (event.getPlugin().equals(InventoryAPI.getInstance())) {
-                    instance = null;
+                if (event.getPlugin().equals(plugin)) {
+                    if (InventoryVariables.playerInventory == null || InventoryVariables.playerInventory.entrySet() == null || InventoryVariables.playerInventory.isEmpty()) {
+                        return;
+                    }
                     for (Map.Entry<Player, HInventory> entry : InventoryVariables.playerInventory.entrySet()) {
                         Player player = entry.getKey();
                         HInventory hInventory = entry.getValue();
-                        if (hInventory != null) {
+                        if (hInventory != null && hasInventory(player)) {
                             hInventory.close(player);
                         }
                     }
@@ -55,6 +57,10 @@ public class InventoryAPI {
 
     public static HInventory getInventory(Player player) {
         return InventoryVariables.playerInventory.get(player);
+    }
+
+    public static boolean hasInventory(Player player) {
+        return InventoryVariables.playerInventory.containsKey(player);
     }
 
     public static String getId(Player player) {
