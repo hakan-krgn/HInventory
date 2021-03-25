@@ -35,6 +35,9 @@ public class InventoryAPI {
         Listener disableListener = new Listener() {
             @EventHandler
             public void onDisable(PluginDisableEvent event) {
+                if (event.getPlugin() == null || plugin == null) {
+                    return;
+                }
                 if (event.getPlugin().equals(plugin)) {
                     if (InventoryVariables.playerInventory == null || InventoryVariables.playerInventory.entrySet() == null || InventoryVariables.playerInventory.isEmpty()) {
                         return;

@@ -77,18 +77,22 @@ public class InventoryListeners implements Listener {
                     Bukkit.getPluginManager().callEvent(new HInventoryCloseEvent(player, hInventory, event));
                     InventoryVariables.playerInventory.remove(player);
 
-                    new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            player.updateInventory();
-                        }
-                    }.runTaskLater(InventoryAPI.getInstance(), 1);
+                    if (InventoryAPI.getInstance() != null) {
+                        new BukkitRunnable() {
+                            @Override
+                            public void run() {
+                                player.updateInventory();
+                            }
+                        }.runTaskLater(InventoryAPI.getInstance(), 1);
+                    }
                 } else {
-                    new BukkitRunnable() {
-                        public void run() {
-                            hInventory.open(player);
-                        }
-                    }.runTaskLater(InventoryAPI.getInstance(), 1);
+                    if (InventoryAPI.getInstance() != null) {
+                        new BukkitRunnable() {
+                            public void run() {
+                                hInventory.open(player);
+                            }
+                        }.runTaskLater(InventoryAPI.getInstance(), 1);
+                    }
                 }
             }
         }

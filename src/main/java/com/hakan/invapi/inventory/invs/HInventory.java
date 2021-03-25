@@ -75,15 +75,17 @@ public class HInventory implements InventoryHolder {
 
     public void update(Player player, int runLater, int period, Update update) {
         final BukkitTask[] bukkitTask = {null};
-        bukkitTask[0] = new BukkitRunnable() {
-            public void run() {
-                if (InventoryAPI.getInventory(player) == null) {
-                    cancel();
-                    return;
+        if (InventoryAPI.getInstance() != null) {
+            bukkitTask[0] = new BukkitRunnable() {
+                public void run() {
+                    if (InventoryAPI.getInventory(player) == null || InventoryAPI.getInstance() == null) {
+                        cancel();
+                        return;
+                    }
+                    update.update(bukkitTask[0]);
                 }
-                update.update(bukkitTask[0]);
-            }
-        }.runTaskTimer(InventoryAPI.getInstance(), runLater, period);
+            }.runTaskTimer(InventoryAPI.getInstance(), runLater, period);
+        }
     }
 
     public void guiFill(ClickableItem clickableItem) {
