@@ -145,6 +145,9 @@ public class HInventory implements InventoryHolder {
     }
 
     public void setItem(int slot, ClickableItem clickableItem) {
+        if (clickableItem.getItem() == null || clickableItem.getItem().getType().equals(Material.AIR)) {
+            return;
+        }
         this.clickableItems.put(slot, clickableItem);
         this.bukkitInventory.setItem(slot, clickableItem.getItem());
     }
