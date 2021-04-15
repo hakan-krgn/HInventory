@@ -167,6 +167,7 @@ public class HInventory implements InventoryHolder {
         return this;
     }
 
+    @Override
     public HInventory clone() {
         return new HInventory(getTitle(), getInventoryType(), getSize(), getId() + "_clone", isCloseable(), isClickable());
     }
